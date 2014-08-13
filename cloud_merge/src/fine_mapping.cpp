@@ -2,8 +2,6 @@
 
 #include "fine_registration.h"
 #include "asynch_visualizer.h"
-#include "fine_edge.h"
-#include "fine_vertex.h"
 
 #include <Eigen/Dense>
 #include <pcl/visualization/pcl_visualizer.h>

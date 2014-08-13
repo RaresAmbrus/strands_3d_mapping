@@ -46,8 +46,6 @@ add_executable(cloud_merge ${HDRS} ${SRCS})
    mongoclient
    message_store
    fine_registration
-   fine_vertex
-   fine_edge
    asynch_visualizer
    g2o_core
    g2o_types_slam3d
