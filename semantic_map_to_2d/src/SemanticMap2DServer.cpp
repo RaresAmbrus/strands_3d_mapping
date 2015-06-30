@@ -164,6 +164,7 @@ bool SemanticMap2DServer::changeWayPoint(WaypointSrv::Request  &req,
       return false;
     }
     
+    std::cout<<"Class id "<<srv.response.octomap.id<<std::endl;
     AbstractOcTree* tree = octomap_msgs::fullMsgToMap(srv.response.octomap);
     if (!tree){
         ROS_ERROR("Failed to recreate octomap");

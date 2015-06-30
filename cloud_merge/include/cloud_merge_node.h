@@ -496,10 +496,10 @@ void CloudMergeNode<PointType>::controlCallback(const std_msgs::String& controlS
             {
                 // load precalibrated camera poses
                 std::vector<tf::StampedTransform> regTransforms = semantic_map_registration_transforms::loadRegistrationTransforms("default", true);
-                if (regTransforms.size() != aSemanticRoom.getIntermediateClouds().size())
-                {
-                    ROS_ERROR_STREAM("Cannot correct sweep as the number of precalibrated sweep poses is not the same as the number of intermediate point clouds in this sweep "/*<<regTransforms.size<<"  "<<aSemanticRoom.getIntermediateClouds().size()*/);
-                } else {
+                //if (regTransforms.size() != aSemanticRoom.getIntermediateClouds().size())
+                //{
+                //    ROS_ERROR_STREAM("Cannot correct sweep as the number of precalibrated sweep poses is not the same as the number of intermediate point clouds in this sweep "/*<<regTransforms.size<<"  "<<aSemanticRoom.getIntermediateClouds().size()*/);
+                //} else {
                     // create corrected camera parameters
                     // TODO load this from file
                     ROS_INFO_STREAM("Reprojecting and registering sweep...");
@@ -542,7 +542,7 @@ void CloudMergeNode<PointType>::controlCallback(const std_msgs::String& controlS
                     RegistrationFeatures reg(true);
                     reg.saveOrbFeatures<PointType>(aSemanticRoom,base_path);
 
-                }
+               // }
             }
 
             // Pulbish room observation

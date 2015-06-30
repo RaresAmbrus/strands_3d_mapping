@@ -35,7 +35,7 @@ namespace semantic_map_room_utilities
 
         aRoom.clearIntermediateClouds();
 
-        if (cloudTransformsReg.size() == clouds.size())
+//        if (cloudTransformsReg.size() == clouds.size())
         {
            for (size_t j=0; j<clouds.size(); j++)
            {
@@ -72,10 +72,10 @@ namespace semantic_map_room_utilities
               aRoom.addIntermediateRoomCloud(addToRoom, cloudTransforms[j], camParamOrig[j]);
 
            }
-        } else {
-            ROS_INFO_STREAM("Cannot rebuild intermediate clouds as the number of intermediate transforms is less than the number of intermediate clouds.");
-            return;
-        }
+        }// else {
+         //   ROS_INFO_STREAM("Cannot rebuild intermediate clouds as the number of intermediate transforms is less than the number of intermediate clouds.");
+         //   return;
+       // }
         return;
     }
 
@@ -92,7 +92,8 @@ namespace semantic_map_room_utilities
 
         if (cloudTransformsReg.size() == clouds.size())
         {
-            for (size_t j=0; j<clouds.size()/3; j++)
+            //for (size_t j=0; j<clouds.size()/3; j++)
+            for (size_t j=0; j<clouds.size(); j++)
             {
                 Cloud transformed_cloud;
                 pcl_ros::transformPointCloud(*clouds[j], transformed_cloud,cloudTransformsReg[j]);
