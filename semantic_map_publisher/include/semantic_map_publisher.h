@@ -281,6 +281,7 @@ bool SemanticMapPublisher<PointType>::observationOctomapServiceCallback(Observat
     octomap_msgs::Octomap octo_msg;
     octomap_msgs::fullMapToMsg(map,octo_msg);
     res.octomap = octo_msg;
+    std::cout << "Octomap request: " << res.octomap.id << std::endl;
     return true;
 }
 
