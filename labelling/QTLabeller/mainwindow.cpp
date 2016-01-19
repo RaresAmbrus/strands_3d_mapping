@@ -66,14 +66,12 @@ void MainWindow::parseInputPath(std::string path, std::string waypoint)
 
          for (auto label: labelFiles)
          {
-//            qDebug()<<"Found "<<label;
-            m_allMasks.push_back(QString(base_path.c_str()) + "/" + label);
+            m_allMasks.push_back(QString(base_path.c_str()) + "/" + label);            
          }
 
          for (auto object: objectFiles)
          {
-//            qDebug()<<"Found "<<label;
-            m_allObjectFiles.push_back(QString(base_path.c_str()) + "/" + object);
+             m_allObjectFiles.push_back(QString(base_path.c_str()) + "/" + object);
          }
 
       }
@@ -121,12 +119,23 @@ void MainWindow::showNextLabelSlot()
    qDebug()<<"Showing the next label image"<<endl;
    m_currentImage++;
 
-   if (m_currentImage > m_allMasks.size())
+   if (m_currentImage >= m_allMasks.size())
    {
       m_currentImage = m_allMasks.size() - 1;
+      return;
    }
 
    displayImage(m_currentImage, m_allMasks, m_allObjectFiles);
+
+   // check that the assigned label matches the restriction imposed by the user
+   QString currentLabel = this->ui->m_currentLabel->text();
+   QString matchLabel = this->ui->m_matchLabel->text();
+   qDebug()<<"Match label "<<matchLabel;
+
+   if ((currentLabel != "") && (matchLabel != "") && (currentLabel != matchLabel)) {
+        showNextLabelSlot();
+   }
+
 }
 
 void MainWindow::showPreviousLabelSlot()
@@ -134,9 +143,20 @@ void MainWindow::showPreviousLabelSlot()
    qDebug()<<"Showing the previous label image"<<endl;
    m_currentImage--;
 
-   if (m_currentImage <0) m_currentImage = 0;
+   if (m_currentImage <0) {
+       m_currentImage = 0;
+       return;
+   }
 
    displayImage(m_currentImage, m_allMasks, m_allObjectFiles);
+
+   // check that the assigned label matches the restriction imposed by the user
+   QString currentLabel = this->ui->m_currentLabel->text();
+   QString matchLabel = this->ui->m_matchLabel->text();
+
+   if ((currentLabel != "") && (matchLabel != "") && (currentLabel != matchLabel)) {
+        showPreviousLabelSlot();
+   }
 }
 
 void MainWindow::displayImage(int image_number, std::vector<QString> allImageFiles, std::vector<QString> allObjectFiles)
@@ -168,8 +188,20 @@ void MainWindow::displayImage(int image_number, std::vector<QString> allImageFil
 
    QTextStream textStream(&textFile);
    QString existing_label = textStream.readLine();
-
    this->ui->m_currentLabel->setText(existing_label);
+
+   // display RGB image if available
+   unsigned found2 = allImageFiles[image_number].toStdString().find("rgb_");
+   std::string rgb_file = allImageFiles[image_number].toStdString().substr(0, found2+8);
+   rgb_file+= ".jpg";
+   qDebug()<<"Corresponding rgb file "<<rgb_file.c_str();
+//   m_allRGBFiles.push_back(QString(base_path.c_str()) + "/" + rgb_file.c_str());
+   QImage rgbImage(rgb_file.c_str());
+   if (!rgbImage.isNull()){
+       // display
+        this->ui->m_rgbImage->setPixmap(QPixmap::fromImage(rgbImage));
+   }
+
 }
 
 void MainWindow::readLabels(QString labels, QString display_labels)

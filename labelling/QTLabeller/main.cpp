@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
       return -1;
    }
 
+   path+="/";
+
    QApplication a(argc, argv);
    MainWindow w;
    w.show();

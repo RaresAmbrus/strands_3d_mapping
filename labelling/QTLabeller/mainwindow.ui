@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1402</width>
-    <height>1003</height>
+    <width>1566</width>
+    <height>1139</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,8 +43,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>10</y>
+      <x>910</x>
+      <y>0</y>
       <width>121</width>
       <height>17</height>
      </rect>
@@ -102,8 +102,8 @@
    <widget class="QPushButton" name="m_setLabelButton">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>620</y>
+      <x>390</x>
+      <y>730</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -160,8 +160,8 @@
    <widget class="QLabel" name="m_mask">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>40</y>
+      <x>930</x>
+      <y>30</y>
       <width>640</width>
       <height>480</height>
      </rect>
@@ -179,7 +179,7 @@
    <widget class="QListWidget" name="m_label">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>530</x>
       <y>550</y>
       <width>261</width>
       <height>391</height>
@@ -209,14 +209,69 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLineEdit" name="m_matchLabel">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>900</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>900</y>
+      <width>121</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show only labels</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>550</y>
+      <width>121</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RGB Image </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_rgbImage">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>590</y>
+      <width>640</width>
+      <height>480</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>640</width>
+      <height>480</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1402</width>
-     <height>25</height>
+     <width>1566</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>
