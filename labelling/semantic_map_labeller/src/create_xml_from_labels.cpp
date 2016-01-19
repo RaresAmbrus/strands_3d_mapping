@@ -68,6 +68,9 @@ int main(int argc, char** argv)
          in >> label;
          cout<<"Object label "<<label<<" object file "<<base_path+labelFiles[i].toStdString()<<endl;
 
+//         if (label != "water_boiler"){
+//             continue;
+//         }
 
          QFile file((base_path+pcdFiles[i].toStdString()).c_str());
          if (!file.exists())
