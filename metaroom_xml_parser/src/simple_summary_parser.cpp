@@ -55,16 +55,16 @@ bool SimpleSummaryParser::createSummaryXML(std::string rootFolder, bool verbose)
         return "";
     }
 
-    QXmlStreamWriter* xmlWriter = new QXmlStreamWriter();
-    xmlWriter->setDevice(&file);
+    QXmlStreamWriter xmlWriter;
+    xmlWriter.setDevice(&file);
 
-    xmlWriter->writeStartDocument();
-    xmlWriter->writeStartElement("SemanticMap");
+    xmlWriter.writeStartDocument();
+    xmlWriter.writeStartElement("SemanticMap");
 
-    saveSemanticRooms(xmlWriter, qrootFolder, verbose);
+    saveSemanticRooms(&xmlWriter, qrootFolder, verbose);
 
-    xmlWriter->writeEndElement(); // SemanticMap
-    xmlWriter->writeEndDocument();
+    xmlWriter.writeEndElement(); // SemanticMap
+    xmlWriter.writeEndDocument();
 
     ROS_INFO_STREAM("Done looking for observations. Found "<<m_vAllRooms.size()<<" observations.");
 
@@ -83,36 +83,38 @@ void SimpleSummaryParser::saveSemanticRooms(QXmlStreamWriter* xmlWriter, QString
         QFile file(roomXmlFile);
         file.open(QIODevice::ReadOnly);
 
-        QXmlStreamReader* xmlReader = new QXmlStreamReader(&file);
-        QXmlStreamReader::TokenType token = xmlReader->readNext();
-        int max_token = 15;
-        int current_token=0;
-        while ((token != QXmlStreamReader::StartElement) && (current_token<max_token))
         {
-            current_token++;
-            token = xmlReader->readNext();
-        }
-
-        if (current_token > max_token)
-        {
-            continue;
-        }
-
-        if (xmlReader->name() == "SemanticRoom")
-        {
-            xmlWriter->writeStartElement("RoomXMLFile");
-            xmlWriter->writeCharacters(roomXmlFile);
-            xmlWriter->writeEndElement();
-
-            xmlWriter->writeEndElement();
-            if (verbose)
+            QXmlStreamReader xmlReader(&file);
+            QXmlStreamReader::TokenType token = xmlReader.readNext();
+            int max_token = 15;
+            int current_token=0;
+            while ((token != QXmlStreamReader::StartElement) && (current_token<max_token))
             {
-                ROS_INFO_STREAM("Added room "<<roomXmlFile.toStdString());
+                current_token++;
+                token = xmlReader.readNext();
             }
 
-            EntityStruct aRoom;
-            aRoom.roomXmlFile = roomXmlFile.toStdString();
-            m_vAllRooms.push_back(aRoom);
+            if (current_token > max_token)
+            {
+                continue;
+            }
+
+            if (xmlReader.name() == "SemanticRoom")
+            {
+                xmlWriter->writeStartElement("RoomXMLFile");
+                xmlWriter->writeCharacters(roomXmlFile);
+                xmlWriter->writeEndElement();
+
+                xmlWriter->writeEndElement();
+                if (verbose)
+                {
+                    ROS_INFO_STREAM("Added room "<<roomXmlFile.toStdString());
+                }
+
+                EntityStruct aRoom;
+                aRoom.roomXmlFile = roomXmlFile.toStdString();
+                m_vAllRooms.push_back(aRoom);
+            }
         }
 
         file.close();
